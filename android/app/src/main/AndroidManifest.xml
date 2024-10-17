@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="music_player"
+        android:label="TrackPlay"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
@@ -33,6 +33,8 @@
     </application>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
 
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

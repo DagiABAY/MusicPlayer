@@ -15,7 +15,7 @@ class _SongPageState extends State<SongPage> {
   String formatTime(Duration duration) {
     String twoDigitSeconds =
         duration.inSeconds.remainder(60).toString().padLeft(2, '0');
-    String formatedTime = "${duration.inMinutes}:${twoDigitSeconds}";
+    String formatedTime = "${duration.inMinutes}:$twoDigitSeconds";
     return formatedTime;
   }
 
@@ -24,9 +24,8 @@ class _SongPageState extends State<SongPage> {
     return Consumer<PlaylistProvider>(builder: (context, value, child) {
       final playlists = value.playlist;
       final currentSong = playlists[value.currentSongIndex ?? 0];
-
       return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(left: 25.0, right: 25, bottom: 25),
@@ -58,7 +57,7 @@ class _SongPageState extends State<SongPage> {
                 MyBox(
                     child: Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height / 2,
                       child: Center(
                           child: value.isPlaying
@@ -101,7 +100,7 @@ class _SongPageState extends State<SongPage> {
                               ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                             // height:
                             //     MediaQuery.of(context).size.height / 2 / ,
                             // child: value.isPlaying
@@ -223,11 +222,28 @@ class _SongPageState extends State<SongPage> {
                         ],
                       ),
                     ),
+                    // ProgressBar(
+                    //   thumbGlowColor: Colors.green,
+                    //   bufferedBarColor: Colors.yellow,
+
+                    //   progressBarColor: Colors.green,
+                    //   thumbColor: Colors.green,
+                    //   barHeight: 6.0,
+                    //   timeLabelLocation: TimeLabelLocation.none,
+
+                    //   progress: value.currentDuration,
+                    //   buffered: value.currentDuration+Duration(milliseconds: 4000),
+                    //   total: value.totalDuration,
+                    //   onSeek: (duration) {
+                    //     value.seek(Duration(seconds: duration.inSeconds));
+                    //   },
+                    // ),
+
                     SliderTheme(
                       data: SliderTheme.of(context).copyWith(
                         trackHeight: 6.0,
                         thumbShape: const RoundSliderThumbShape(
-                          enabledThumbRadius: 0,
+                          enabledThumbRadius: 12,
                         ),
                         overlayShape:
                             const RoundSliderOverlayShape(overlayRadius: 20.0),

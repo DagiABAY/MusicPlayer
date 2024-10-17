@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:music_player/providers/theme_providers.dart';
+import 'package:music_player/utils/drawer.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -14,10 +15,11 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: const Text('S E T T I N G S'),
       ),
+      drawer: const MyDrawer(),
       body: Container(
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.secondary,

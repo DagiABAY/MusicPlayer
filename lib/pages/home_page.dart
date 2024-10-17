@@ -53,8 +53,7 @@ class _HomePageState extends State<HomePage> {
       Colors.yellowAccent,
     ];
     return Scaffold(
-     
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: const Text("M U S I C  L I B R A R Y"),
       ),
@@ -104,14 +103,14 @@ class _HomePageState extends State<HomePage> {
 }
 
 class PlayingAnimation extends StatelessWidget {
-  const PlayingAnimation({Key? key}) : super(key: key);
+  const PlayingAnimation({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 50,
       height: 50,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.green,
       ),

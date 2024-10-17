@@ -2,13 +2,14 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:music_player/utils/permission.dart';
 import 'package:music_player/utils/song.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PlaylistProvider extends ChangeNotifier {
   PlaylistProvider(BuildContext context) {
-    requestPermissions(context).then((_) {
+    Permissions.requestPermissions(context).then((_) {
       loadAudioFiles(context);
       listenToDuration();
     });
@@ -30,7 +31,7 @@ class PlaylistProvider extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   Future<void> loadAudioFiles(BuildContext context) async {
-    await requestPermissions(context);
+    await Permissions.requestPermissions(context);
 
     final Directory? rootDir = Directory('/storage/emulated/0');
     if (rootDir != null) {
@@ -87,6 +88,10 @@ class PlaylistProvider extends ChangeNotifier {
       play();
     }
     notifyListeners();
+  }
+
+  set isPlaying(bool playing) {
+    _isPlaying = playing;
   }
 
   set currentDuration(Duration duration) {
@@ -228,39 +233,4 @@ class PlaylistProvider extends ChangeNotifier {
       }
     });
   }
-}
-
-Future<void> requestPermissions(BuildContext context) async {
-  var status = await Permission.storage.request();
-
-  if (status.isGranted) {
-    print("Storage permission granted.");
-  } else if (status.isDenied) {
-    print("Storage permission denied.");
-    _showPermissionDeniedDialog(context);
-  } else if (status.isPermanentlyDenied) {
-    print("Storage permission permanently denied.");
-    openAppSettings();
-  }
-}
-
-void _showPermissionDeniedDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text("Permission Denied"),
-        content:
-            Text("This app needs storage permission to function properly."),
-        actions: [
-          TextButton(
-            child: Text("OK"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
 }
